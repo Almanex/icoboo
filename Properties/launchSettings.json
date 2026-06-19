@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "IconForge (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "IconForge (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

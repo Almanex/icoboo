@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="IconForge.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:IconForge"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="24" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock 
+                    Text="IconForge" 
+                    Style="{ThemeResource TitleTextBlockStyle}" 
+                    FontWeight="SemiBold" />
+                <TextBlock 
+                    Text="Пакетный генератор иконок для Windows и Android" 
+                    Style="{ThemeResource BodyTextBlockStyle}" 
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                    Margin="0,4,0,0" />
+            </StackPanel>
+            
+            <Image Grid.Column="1" Source="Assets/Square44x44Logo.scale-200.png" Height="40" Width="40" VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- Main Workspace -->
+        <Grid Grid.Row="1" ColumnSpacing="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel: Configuration -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="16" Padding="0,0,12,0">
+
+                    <!-- 1. Source File Card -->
+                    <Border 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        
+                        <StackPanel Padding="16" Spacing="12">
+                            <TextBlock Text="Исходный файл" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
+                            
+                            <!-- Drag and Drop Area -->
+                            <Border 
+                                x:Name="DropZone"
+                                BorderThickness="2"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                Background="{ThemeResource ControlAltFillColorSecondaryBrush}"
+                                CornerRadius="6"
+                                Height="140"
+                                AllowDrop="True"
+                                DragOver="DropZone_DragOver"
+                                DragLeave="DropZone_DragLeave"
+                                Drop="DropZone_Drop"
+                                PointerPressed="DropZone_PointerPressed">
+                                
+                                <Grid>
+                                    <!-- Empty State -->
+                                    <StackPanel 
+                                        x:Name="DropZoneEmptyState"
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Center" 
+                                        Spacing="8">
+                                        <FontIcon 
+                                            Glyph="&#xE8E5;" 
+                                            FontSize="32" 
+                                            Foreground="{ThemeResource SystemControlHighlightAccentBrush}" />
+                                        <TextBlock 
+                                            Text="Перетащите файл сюда" 
+                                            HorizontalAlignment="Center" 
+                                            FontWeight="SemiBold" />
+                                        <TextBlock 
+                                            Text="Поддерживаются файлы PNG и SVG" 
+                                            Style="{ThemeResource CaptionTextBlockStyle}" 
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                                            HorizontalAlignment="Center" />
+                                    </StackPanel>
+
+                                    <!-- Loaded State -->
+                                    <Grid 
+                                        x:Name="DropZoneLoadedState" 
+                                        Visibility="Collapsed" 
+                                        Padding="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border 
+                                            Grid.Column="0" 
+                                            Width="64" 
+                                            Height="64" 
+                                            Background="{ThemeResource ControlAltFillColorTertiaryBrush}"
+                                            CornerRadius="4" 
+                                            Padding="4"
+                                            VerticalAlignment="Center">
+                                            <Image x:Name="PreviewImage" Stretch="Uniform" />
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Spacing="2">
+                                            <TextBlock x:Name="FileNameTextBlock" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock x:Name="FileSizeTextBlock" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                            <TextBlock x:Name="FileTypeTextBlock" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource SystemControlHighlightAccentBrush}" FontWeight="Medium" />
+                                        </StackPanel>
+
+                                        <Button 
+                                            Grid.Column="2" 
+                                            Content="&#xE711;" 
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}" 
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Center"
+                                            Click="RemoveFileButton_Click" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Button 
+                                x:Name="BrowseButton"
+                                Content="Выбрать файл на диске..." 
+                                HorizontalAlignment="Stretch"
+                                Click="BrowseButton_Click" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 2. Export Destination Card -->
+                    <Border 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        
+                        <StackPanel Padding="16" Spacing="12">
+                            <TextBlock Text="Папка назначения" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
+                            
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBox 
+                                    x:Name="OutputDirTextBox" 
+                                    PlaceholderText="Выберите папку для сохранения иконок" 
+                                    IsReadOnly="False"
+                                    VerticalAlignment="Center" />
+                                
+                                <Button 
+                                    Grid.Column="1" 
+                                    Click="BrowseFolderButton_Click"
+                                    VerticalAlignment="Center"
+                                    ToolTipService.ToolTip="Выбрать папку">
+                                    <FontIcon Glyph="&#xED25;" />
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 3. Android Customization Card -->
+                    <Border 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        
+                        <StackPanel Padding="16" Spacing="12">
+                            <TextBlock Text="Настройки Android" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
+                            
+                            <!-- Background color field -->
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Цвет заднего фона адаптивной иконки" Style="{ThemeResource BodyTextBlockStyle}" />
+                                <Grid ColumnSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border 
+                                        x:Name="BgColorPreview" 
+                                        Width="32" 
+                                        Height="32" 
+                                        CornerRadius="16" 
+                                        Background="White" 
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                                        BorderThickness="1" />
+                                    
+                                    <TextBox 
+                                        Grid.Column="1" 
+                                        x:Name="BgColorTextBox" 
+                                        Text="#FFFFFF" 
+                                        MaxLength="9"
+                                        PlaceholderText="#RRGGBB" 
+                                        TextChanged="BgColorTextBox_TextChanged" />
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- Color Swatches -->
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Быстрые цвета:" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <VariableSizedWrapGrid Orientation="Horizontal" ItemWidth="44" ItemHeight="36" MaximumRowsOrColumns="6">
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="White" BorderThickness="1" Click="Swatch_Click" Tag="#FFFFFF" ToolTipService.ToolTip="Белый (#FFFFFF)" />
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="Black" BorderThickness="1" Click="Swatch_Click" Tag="#000000" ToolTipService.ToolTip="Черный (#000000)" />
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="#A4C2F4" BorderThickness="1" Click="Swatch_Click" Tag="#A4C2F4" ToolTipService.ToolTip="Пастельный синий (#A4C2F4)" />
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="#3DDC84" BorderThickness="1" Click="Swatch_Click" Tag="#3DDC84" ToolTipService.ToolTip="Android Green (#3DDC84)" />
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="#0078D4" BorderThickness="1" Click="Swatch_Click" Tag="#0078D4" ToolTipService.ToolTip="Windows Accent (#0078D4)" />
+                                    <Button Width="32" Height="32" CornerRadius="16" Background="#212121" BorderThickness="1" Click="Swatch_Click" Tag="#212121" ToolTipService.ToolTip="Темный серый (#212121)" />
+                                </VariableSizedWrapGrid>
+                            </StackPanel>
+
+                            <!-- Custom Background Image -->
+                            <StackPanel Spacing="6" Margin="0,4,0,0">
+                                <CheckBox x:Name="UseBgImageCheckBox" Content="Использовать фоновое изображение" Checked="UseBgImage_Changed" Unchecked="UseBgImage_Changed" />
+                                <Grid ColumnSpacing="8" x:Name="BgImagePickerGrid" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="BgImagePathTextBox" PlaceholderText="Файл изображения для фона" IsReadOnly="True" />
+                                    <Button x:Name="BrowseBgImageButton" Grid.Column="1" Click="BrowseBgImageButton_Click">
+                                        <FontIcon Glyph="&#xE8E5;" />
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Right Panel: Operations & Progress -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                    <StackPanel Spacing="16">
+                        
+                        <!-- 4. Export Formats Card -->
+                        <Border 
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            
+                            <StackPanel Padding="16" Spacing="12">
+                                <TextBlock Text="Параметры экспорта" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
+                                
+                                <CheckBox x:Name="WindowsIcoCheckBox" IsChecked="True" Content="Windows (Классический .ico)" />
+                                <TextBlock 
+                                    Text="Мультиформатный контейнер (16-256px) с микро-шарпингом для мелких размеров." 
+                                    Style="{ThemeResource CaptionTextBlockStyle}" 
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                                    Margin="28,-8,0,4" 
+                                    TextWrapping="Wrap" />
+
+                                <CheckBox x:Name="WindowsAssetsCheckBox" IsChecked="True" Content="Windows Assets (Square PNGs)" />
+                                <TextBlock 
+                                    Text="Раздельные PNG логотипы в масштабах от 100% до 400% для UWP/WinUI манифестов." 
+                                    Style="{ThemeResource CaptionTextBlockStyle}" 
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                                    Margin="28,-8,0,4" 
+                                    TextWrapping="Wrap" />
+
+                                <CheckBox x:Name="AndroidAdaptiveCheckBox" IsChecked="True" Content="Android Adaptive &amp; Legacy" />
+                                <TextBlock 
+                                    Text="Нарезка слоев Foreground, Background по MIPMAP плотностям, legacy-круг и Google Play 512x512." 
+                                    Style="{ThemeResource CaptionTextBlockStyle}" 
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                                    Margin="28,-8,0,4" 
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 5. System Integration Card -->
+                        <Border 
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            
+                            <StackPanel Padding="16" Spacing="8">
+                                <TextBlock Text="Системная интеграция" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
+                                
+                                <ToggleSwitch 
+                                    x:Name="ContextMenuToggle" 
+                                    Header="Контекстное меню Windows" 
+                                    Toggled="ContextMenuToggle_Toggled" />
+                                <TextBlock 
+                                    Text="Добавить в контекстное меню Explorer пункт 'Сгенерировать иконки в IconForge'" 
+                                    Style="{ThemeResource CaptionTextBlockStyle}" 
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" 
+                                    Margin="0,-4,0,0" 
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Progress Section -->
+                        <Border 
+                            x:Name="ProgressCard"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Visibility="Collapsed">
+                            
+                            <StackPanel Padding="16" Spacing="10">
+                                <TextBlock x:Name="ProgressStatusTextBlock" Text="Ожидание..." Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Medium" />
+                                <ProgressBar x:Name="GenerationProgressBar" Minimum="0" Maximum="100" Value="0" IsIndeterminate="False" Height="4" />
+                                
+                                <ScrollViewer Height="120" VerticalScrollBarVisibility="Auto" Background="{ThemeResource ControlAltFillColorSecondaryBrush}" CornerRadius="4" Padding="8">
+                                    <TextBlock x:Name="LogTextBlock" FontFamily="Consolas" FontSize="11" TextWrapping="Wrap" />
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- 6. Generate Action Panel -->
+                <StackPanel Grid.Row="1" Spacing="12" Margin="0,16,0,0">
+                    <Button 
+                        x:Name="GenerateButton" 
+                        Content="Сгенерировать иконки" 
+                        Style="{StaticResource AccentButtonStyle}" 
+                        HorizontalAlignment="Stretch" 
+                        Height="42" 
+                        FontWeight="SemiBold"
+                        Click="GenerateButton_Click" />
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>
