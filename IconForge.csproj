@@ -10,7 +10,7 @@
     <PublishProfile Condition="Exists('Properties\PublishProfiles\win-$(Platform).pubxml')">win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
-    <EnableMsixTooling>false</EnableMsixTooling>
+    <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <SelfContained>true</SelfContained>
@@ -76,5 +76,7 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishSingleFile Condition="'$(Configuration)' != 'Debug'">True</PublishSingleFile>
+    <IncludeAllContentForSelfExtract Condition="'$(Configuration)' != 'Debug'">True</IncludeAllContentForSelfExtract>
   </PropertyGroup>
 </Project>
