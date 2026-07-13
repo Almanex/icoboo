@@ -131,13 +131,16 @@ After generation, the following directory structure is created in the selected d
    dotnet run
    ```
 
-### Publishing (Self-Contained EXE)
+### Publishing (Self-Contained EXE with Assets)
 
-To generate a single executable package (all dependencies will be copied to the publish folder):
+To generate a single executable package:
 ```powershell
 dotnet publish -c Release -r win-x64 --self-contained true
 ```
-The compiled program can then be run on any computer with Windows 10/11 without first installing any runtime libraries.
+This compilation merges assemblies into a single executable `IconForge.exe` and copies the `Assets/` folder alongside it inside the `publish/` directory.
+
+> [!IMPORTANT]
+> The `Assets/` folder **must** be kept in the same directory as `IconForge.exe` for the application to load UI assets and start successfully. When distributing the app, package both the executable and the `Assets/` directory together (e.g., in a ZIP archive).
 
 ---
 

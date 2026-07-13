@@ -15,6 +15,9 @@ IconForge ist so konzipiert, dass es einfach und schnell zu bedienen ist:
 3. **Einstellungen konfigurieren:** Wählen Sie Ihre bevorzugten Exportoptionen aus (klassisches Windows `.ico`, moderne Windows Assets oder Android Adaptive Layouts).
 4. **Generieren:** Klicken Sie auf **"Symbole generieren"**. Nach Abschluss des Vorgangs wird eine Benachrichtigung angezeigt. Sie können auf die Benachrichtigung klicken oder den Zielordner öffnen, um die Dateien anzuzeigen.
 
+> [!IMPORTANT]
+> **Ressourcenabhängigkeit:** Die ausführbare Datei `IconForge.exe` benötigt das Verzeichnis `Assets/` mit den internen Anwendungssymbolen im selben Ordner, um die Benutzeroberfläche korrekt zu laden. Stellen Sie vor dem Starten sicher, dass sich der Ordner `Assets/` im selben Verzeichnis wie `IconForge.exe` befindet. Wenn Sie das ZIP-Archiv des Releases heruntergeladen haben, entpacken Sie bitte alle Dateien vollständig vor der Verwendung.
+
 ---
 
 ## 2. Symbolformate und technische Spezifikationen

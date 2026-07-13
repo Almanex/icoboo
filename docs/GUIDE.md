@@ -15,6 +15,9 @@ IconForge is designed to be straightforward and fast:
 3. **Configure Settings:** Choose your preferred export options (Windows `.ico`, modern Assets, or Android Adaptive layouts).
 4. **Generate:** Click **"Generate icons"**. A notification will appear once the process is complete, and you can click the notification or open the target folder to view your assets.
 
+> [!IMPORTANT]
+> **Executable Dependency:** The `IconForge.exe` single-file executable relies on the `Assets/` directory containing the app's internal icons and assets to load its UI correctly. Always ensure the `Assets/` folder is present in the same directory as `IconForge.exe` when running it. If you download a release ZIP archive, make sure to extract all contents before running the program.
+
 ---
 
 ## 2. Icon Formats and Technical Specifications

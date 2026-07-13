@@ -131,13 +131,16 @@ Nach der Generierung wird im ausgewählten Zielordner folgende Verzeichnisstrukt
    dotnet run
    ```
 
-### Veröffentlichen (eigenständige EXE-Datei)
+### Veröffentlichen (eigenständige EXE mit Assets)
 
-So generieren Sie ein einzelnes ausführbares Paket (alle Abhängigkeiten werden in den Ordner `publish` kopiert):
+So generieren Sie ein einzelnes ausführbares Paket:
 ```powershell
 dotnet publish -c Release -r win-x64 --self-contained true
 ```
-Das fertige Programm kann dann auf jedem Computer mit Windows 10/11 ausgeführt werden, ohne dass zuvor Laufzeitbibliotheken installiert werden müssen.
+Diese Kompilierung führt die Assemblies in eine einzige ausführbare Datei `IconForge.exe` zusammen und kopiert den Ordner `Assets/` daneben in das Verzeichnis `publish/`.
+
+> [!IMPORTANT]
+> Der Ordner `Assets/` **muss** im selben Verzeichnis wie `IconForge.exe` aufbewahrt werden, damit die Anwendung UI-Assets laden und erfolgreich starten kann. Wenn Sie die App verteilen, packen Sie sowohl die ausführbare Datei als auch das `Assets/`-Verzeichnis zusammen (z. B. in ein ZIP-Archiv).
 
 ---
 
