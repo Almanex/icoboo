@@ -11,13 +11,13 @@
 [![Share](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FAlmanex%2Ficoboo)](https://twitter.com/intent/tweet?text=Check%20out%20IconForge%20-%20A%20native%20icon%20generator%20for%20Windows%2011!&url=https%3A%2F%2Fgithub.com%2FAlmanex%2Ficoboo)
 
 <p align="center">
-  <img src="../Screenshots/cover.png" alt="IconForge main" width="49%" />
-  <img src="../Screenshots/editor.png" alt="IconForge settings" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/cover.png" alt="IconForge main" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/editor.png" alt="IconForge settings" width="49%" />
 </p>
 
 ---
 
-IconForge — это легкое нативное Windows-приложение (утилита), разработанное на фреймворке WinUI 3 (Windows App SDK) и C#. Оно предназначено для пакетной генерации наборов иконок для Windows (`.ico`, `Assets`) и Android (`Adaptive Icons`) из одного исходного изображения формата PNG или SVG.
+IconForge — это легкое нативное Windows-приложение (утилита), разработанное на фреймворке WinUI 3 (Windows App SDK) и C#, с полной поддержкой 3 языков интерфейса (русский, английский, немецкий). Оно предназначено для пакетной генерации наборов иконок для Windows (`.ico`, `Assets`) и Android (`Adaptive Icons`) из одного исходного изображения формата PNG или SVG.
 
 Подробное описание всех настроек и возможностей см. в [Руководстве пользователя](GUIDE_RU.md).
 
@@ -26,27 +26,27 @@ IconForge — это легкое нативное Windows-приложение 
 <details open>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Показать ] 1. Главное окно - Drag and Drop файлов</b></summary>
   <br/>
-  <p align="center"><img src="../Screenshots/screenshot1.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot1.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Показать ] 2. Настройки и выбор папки назначения</b></summary>
   <br/>
-  <p align="center"><img src="../Screenshots/screenshot2.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot2.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Показать ] 3. Кастомизация адаптивных иконок Android и палитры цветов</b></summary>
   <br/>
-  <p align="center"><img src="../Screenshots/screenshot3.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot3.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Показать ] 4. Интеграция в систему - контекстное меню проводника Windows</b></summary>
   <br/>
-  <p align="center"><img src="../Screenshots/screenshot4.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot4.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Показать ] 5. Активный процесс генерации и всплывающие уведомления</b></summary>
   <br/>
-  <p align="center"><img src="../Screenshots/screenshot5.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot5.png" width="95%" /></p>
 </details>
 
 ---

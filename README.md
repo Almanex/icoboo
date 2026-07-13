@@ -11,13 +11,13 @@
 [![Share](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2FAlmanex%2Ficoboo)](https://twitter.com/intent/tweet?text=Check%20out%20IconForge%20-%20A%20native%20icon%20generator%20for%20Windows%2011!&url=https%3A%2F%2Fgithub.com%2FAlmanex%2Ficoboo)
 
 <p align="center">
-  <img src="Screenshots/cover.png" alt="IconForge main" width="49%" />
-  <img src="Screenshots/editor.png" alt="IconForge settings" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/cover.png" alt="IconForge main" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/editor.png" alt="IconForge settings" width="49%" />
 </p>
 
 ---
 
-IconForge is a lightweight native Windows application developed on the WinUI 3 (Windows App SDK) framework and C#. It is designed for batch generation of icon sets for Windows (`.ico`, `Assets`) and Android (`Adaptive Icons`) from a single source image in PNG or SVG format.
+IconForge is a lightweight native Windows application developed on the WinUI 3 (Windows App SDK) framework and C#, supporting 3 languages (English, Russian, German) out of the box. It is designed for batch generation of icon sets for Windows (`.ico`, `Assets`) and Android (`Adaptive Icons`) from a single source image in PNG or SVG format.
 
 For a detailed walkthrough of all options and features, see the [User Guide](docs/GUIDE.md).
 
@@ -26,27 +26,27 @@ For a detailed walkthrough of all options and features, see the [User Guide](doc
 <details open>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Show ] 1. Main Window - File Drag and Drop</b></summary>
   <br/>
-  <p align="center"><img src="Screenshots/screenshot1.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot1.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Show ] 2. Settings and Target Directory Selection</b></summary>
   <br/>
-  <p align="center"><img src="Screenshots/screenshot2.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot2.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Show ] 3. Android Adaptive Icon Configuration and Color Swatches</b></summary>
   <br/>
-  <p align="center"><img src="Screenshots/screenshot3.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot3.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Show ] 4. Shell Integration - Windows Explorer Context Menu</b></summary>
   <br/>
-  <p align="center"><img src="Screenshots/screenshot4.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot4.png" width="95%" /></p>
 </details>
 <details>
   <summary style="cursor: pointer; padding: 6px; font-family: sans-serif;"><b>[ Show ] 5. Active Process State and Toast Notifications</b></summary>
   <br/>
-  <p align="center"><img src="Screenshots/screenshot5.png" width="95%" /></p>
+  <p align="center"><img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/screenshot5.png" width="95%" /></p>
 </details>
 
 ---

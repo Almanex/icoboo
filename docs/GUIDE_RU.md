@@ -7,8 +7,8 @@
 ---
 
 <p align="center">
-  <img src="../Screenshots/cover.png" alt="IconForge main" width="49%" />
-  <img src="../Screenshots/editor.png" alt="IconForge settings" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/cover.png" alt="IconForge main" width="49%" />
+  <img src="https://raw.githubusercontent.com/Almanex/icoboo/main/Screenshots/editor.png" alt="IconForge settings" width="49%" />
 </p>
 
 ---
