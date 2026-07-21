@@ -27,7 +27,30 @@ public sealed partial class MainWindow : Window
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
 
-        AppWindow.SetIcon(System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "AppIcon.ico"));
+        // Load and set app icon from embedded resources
+        string tempIconPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "IconForge_AppIcon.ico");
+        try
+        {
+            using (var stream = typeof(MainWindow).Assembly.GetManifestResourceStream("IconForge.Assets.AppIcon.ico"))
+            {
+                if (stream != null)
+                {
+                    using (var fileStream = System.IO.File.Create(tempIconPath))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
+                }
+            }
+            if (System.IO.File.Exists(tempIconPath))
+            {
+                AppWindow.SetIcon(tempIconPath);
+                TitleBarImageIconSource.ImageSource = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(new Uri(tempIconPath));
+            }
+        }
+        catch
+        {
+            // Ignore/fallback
+        }
 
         // Parse command line arguments for initial file path (from context menu)
         string? initialFilePath = null;

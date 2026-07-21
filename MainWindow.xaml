@@ -20,7 +20,7 @@
 
         <TitleBar x:Name="AppTitleBar" Title="IconForge">
             <TitleBar.IconSource>
-                <ImageIconSource ImageSource="Assets/AppIcon.ico" />
+                <ImageIconSource x:Name="TitleBarImageIconSource" />
             </TitleBar.IconSource>
         </TitleBar>
 

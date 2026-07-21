@@ -28,6 +28,25 @@ namespace IconForge
         {
             InitializeComponent();
             Loaded += MainPage_Loaded;
+
+            // Load embedded logo image
+            try
+            {
+                using (var stream = typeof(MainPage).Assembly.GetManifestResourceStream("IconForge.Assets.Square44x44Logo.scale-200.png"))
+                {
+                    if (stream != null)
+                    {
+                        var bitmap = new BitmapImage();
+                        var randomAccessStream = System.IO.WindowsRuntimeStreamExtensions.AsRandomAccessStream(stream);
+                        bitmap.SetSource(randomAccessStream);
+                        AppLogoImage.Source = bitmap;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore/fallback
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
