@@ -527,9 +527,30 @@ namespace IconForge.Services
             return playIcon;
         }
 
+        public static SKBitmap MakeSquare(SKBitmap source)
+        {
+            if (source == null) return new SKBitmap(256, 256);
+            if (source.Width == source.Height) return source.Copy();
+
+            int side = Math.Max(source.Width, source.Height);
+            var square = new SKBitmap(side, side);
+            using (var canvas = new SKCanvas(square))
+            {
+                canvas.Clear(SKColors.Transparent);
+                float dx = (side - source.Width) / 2f;
+                float dy = (side - source.Height) / 2f;
+
+                var dstRect = new SKRect(dx, dy, dx + source.Width, dy + source.Height);
+                using var img = SKImage.FromBitmap(source);
+                var sampling = new SKSamplingOptions(SKCubicResampler.CatmullRom);
+                canvas.DrawImage(img, dstRect, sampling, null);
+            }
+            return square;
+        }
+
         public static SKBitmap TrimTransparentMargins(SKBitmap source)
         {
-            if (source == null) return new SKBitmap(1, 1);
+            if (source == null) return new SKBitmap(256, 256);
 
             int minX = source.Width;
             int minY = source.Height;
@@ -539,7 +560,7 @@ namespace IconForge.Services
             unsafe
             {
                 var ptr = (byte*)source.GetPixels();
-                if (ptr == null) return source.Copy();
+                if (ptr == null) return MakeSquare(source);
 
                 int bpp = source.BytesPerPixel;
                 int width = source.Width;
@@ -552,7 +573,7 @@ namespace IconForge.Services
                     for (int x = 0; x < width; x++)
                     {
                         byte alpha = row[x * bpp + 3];
-                        if (alpha > 8)
+                        if (alpha > 12)
                         {
                             if (x < minX) minX = x;
                             if (x > maxX) maxX = x;
@@ -565,22 +586,28 @@ namespace IconForge.Services
 
             if (maxX < minX || maxY < minY)
             {
-                return source.Copy();
+                return MakeSquare(source);
             }
 
             int cropW = maxX - minX + 1;
             int cropH = maxY - minY + 1;
+            int side = Math.Max(cropW, cropH);
 
-            var cropped = new SKBitmap(cropW, cropH);
-            using (var canvas = new SKCanvas(cropped))
+            var square = new SKBitmap(side, side);
+            using (var canvas = new SKCanvas(square))
             {
                 canvas.Clear(SKColors.Transparent);
+                float dx = (side - cropW) / 2f;
+                float dy = (side - cropH) / 2f;
+
                 var srcRect = new SKRect(minX, minY, maxX + 1, maxY + 1);
-                var dstRect = new SKRect(0, 0, cropW, cropH);
-                using var paint = new SKPaint { IsAntialias = true };
-                canvas.DrawBitmap(source, srcRect, dstRect, paint);
+                var dstRect = new SKRect(dx, dy, dx + cropW, dy + cropH);
+
+                using var img = SKImage.FromBitmap(source);
+                var sampling = new SKSamplingOptions(SKCubicResampler.CatmullRom);
+                canvas.DrawImage(img, srcRect, dstRect, sampling, null);
             }
-            return cropped;
+            return square;
         }
 
         public static SKBitmap ApplyShapeMask(SKBitmap source, ShapeMask mask)
@@ -667,7 +694,7 @@ namespace IconForge.Services
         {
             if (source == null) return new SKBitmap(256, 256);
 
-            using SKBitmap inputBitmap = autoCrop ? TrimTransparentMargins(source) : source.Copy();
+            using SKBitmap inputBitmap = autoCrop ? TrimTransparentMargins(source) : MakeSquare(source);
             int width = inputBitmap.Width;
             int height = inputBitmap.Height;
 
