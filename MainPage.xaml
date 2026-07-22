@@ -442,7 +442,7 @@
 
                                         <!-- 256x256 preview -->
                                         <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="64" Height="64" CornerRadius="4">
+                                            <Border Width="72" Height="72" CornerRadius="6">
                                                 <Image x:Name="Preview256" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="256x256" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -450,7 +450,7 @@
 
                                         <!-- 48x48 preview -->
                                         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="48" Height="48" CornerRadius="4">
+                                            <Border Width="56" Height="56" CornerRadius="4">
                                                 <Image x:Name="Preview48" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="48x48" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -458,7 +458,7 @@
 
                                         <!-- 32x32 preview -->
                                         <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="32" Height="32" CornerRadius="4">
+                                            <Border Width="44" Height="44" CornerRadius="4">
                                                 <Image x:Name="Preview32" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="32x32" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -466,8 +466,8 @@
 
                                         <!-- 16x16 preview -->
                                         <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="16" Height="16" CornerRadius="2">
-                                                <Image x:Name="Preview16" Stretch="Uniform" Width="16" Height="16" />
+                                            <Border Width="32" Height="32" CornerRadius="4">
+                                                <Image x:Name="Preview16" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="16x16" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
                                         </StackPanel>

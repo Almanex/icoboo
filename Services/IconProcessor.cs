@@ -587,57 +587,69 @@ namespace IconForge.Services
         {
             if (source == null || mask == ShapeMask.None) return source?.Copy() ?? new SKBitmap(256, 256);
 
-            int w = source.Width;
-            int h = source.Height;
-            var masked = new SKBitmap(w, h);
+            // Trim outer transparent padding so mask clips active graphic content
+            using var cropped = TrimTransparentMargins(source);
 
-            using (var canvas = new SKCanvas(masked))
+            int side = Math.Max(cropped.Width, cropped.Height);
+            if (side < 256) side = 256;
+
+            var result = new SKBitmap(side, side);
+            using (var canvas = new SKCanvas(result))
             {
                 canvas.Clear(SKColors.Transparent);
                 using var path = new SKPath();
 
-                float minDim = Math.Min(w, h);
+                float w = side;
+                float h = side;
                 float cx = w / 2f;
                 float cy = h / 2f;
 
                 switch (mask)
                 {
                     case ShapeMask.Circle:
-                        path.AddCircle(cx, cy, minDim / 2f - 1f);
+                        path.AddCircle(cx, cy, side / 2f - 1f);
                         break;
 
                     case ShapeMask.Squircle:
-                        float sqR = minDim * 0.24f;
+                        float sqR = side * 0.28f;
                         path.AddRoundRect(new SKRect(0, 0, w, h), sqR, sqR);
                         break;
 
                     case ShapeMask.Teardrop:
-                        float tdR = minDim / 2f;
+                        float tdR = side / 2f;
                         var tdRect = new SKRoundRect();
                         var radiiPoints = new SKPoint[]
                         {
-                            new SKPoint(tdR, tdR),
-                            new SKPoint(tdR * 0.15f, tdR * 0.15f),
-                            new SKPoint(tdR, tdR),
-                            new SKPoint(tdR, tdR)
+                            new SKPoint(tdR, tdR),          // Top-Left (round)
+                            new SKPoint(tdR * 0.12f, tdR * 0.12f), // Top-Right (pointy)
+                            new SKPoint(tdR, tdR),          // Bottom-Right (round)
+                            new SKPoint(tdR, tdR)           // Bottom-Left (round)
                         };
                         tdRect.SetRectRadii(new SKRect(0, 0, w, h), radiiPoints);
                         path.AddRoundRect(tdRect);
                         break;
 
                     case ShapeMask.RoundedRect:
-                        float rrR = minDim * 0.15f;
+                        float rrR = side * 0.16f;
                         path.AddRoundRect(new SKRect(0, 0, w, h), rrR, rrR);
                         break;
                 }
 
                 canvas.ClipPath(path, antialias: true);
-                using var img = SKImage.FromBitmap(source);
+
+                float scale = Math.Min(w / cropped.Width, h / cropped.Height);
+                float drawW = cropped.Width * scale;
+                float drawH = cropped.Height * scale;
+                float dx = (w - drawW) / 2f;
+                float dy = (h - drawH) / 2f;
+
+                var dstRect = new SKRect(dx, dy, dx + drawW, dy + drawH);
+                using var img = SKImage.FromBitmap(cropped);
                 var sampling = new SKSamplingOptions(SKCubicResampler.CatmullRom);
-                canvas.DrawImage(img, new SKRect(0, 0, w, h), sampling, null);
+                canvas.DrawImage(img, dstRect, sampling, null);
             }
 
-            return masked;
+            return result;
         }
 
         public static SKBitmap ApplyFiltersAndStyling(
