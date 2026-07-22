@@ -62,6 +62,18 @@ namespace SnapIcon
             }
         }
 
+        private bool IsPackaged()
+        {
+            try
+            {
+                return Windows.ApplicationModel.Package.Current != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             // Initialize Context Menu Toggle state from Registry

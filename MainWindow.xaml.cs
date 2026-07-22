@@ -28,7 +28,7 @@ public sealed partial class MainWindow : Window
         SetTitleBar(AppTitleBar);
 
         // Load and set app icon from embedded resources
-        string tempIconPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "SnapIcon_AppIcon.ico");
+        string tempIconPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"SnapIcon_AppIcon_{System.Diagnostics.Process.GetCurrentProcess().Id}.ico");
         try
         {
             using (var stream = typeof(MainWindow).Assembly.GetManifestResourceStream("SnapIcon.Assets.AppIcon.ico"))
@@ -46,6 +46,19 @@ public sealed partial class MainWindow : Window
                 AppWindow.SetIcon(tempIconPath);
                 TitleBarImageIconSource.ImageSource = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(new Uri(tempIconPath));
             }
+            
+            // Clean up the temp file on close
+            this.Closed += (s, e) =>
+            {
+                try
+                {
+                    if (System.IO.File.Exists(tempIconPath))
+                    {
+                        System.IO.File.Delete(tempIconPath);
+                    }
+                }
+                catch { }
+            };
         }
         catch
         {
