@@ -86,10 +86,9 @@
   </PropertyGroup>
 
   <!-- Target to bundle generated PRI file inside single-file executable to prevent crashes when renamed -->
-  <Target Name="BundlePriInSingleFile" BeforeTargets="GenerateSingleFileBundle">
+  <Target Name="BundlePriInSingleFile" BeforeTargets="GenerateSingleFileBundle" Condition="'$(PublishSingleFile)' == 'true'">
     <ItemGroup>
       <ResolvedFileToPublish Include="$(TargetDir)IconForge.pri" RelativePath="resources.pri" Condition="Exists('$(TargetDir)IconForge.pri')" />
-      <ResolvedFileToPublish Include="$(TargetDir)IconForge.pri" RelativePath="IconForge.pri" Condition="Exists('$(TargetDir)IconForge.pri')" />
     </ItemGroup>
   </Target>
 </Project>

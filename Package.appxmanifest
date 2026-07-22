@@ -13,7 +13,7 @@
   <Identity
     Name="Almanex.IconForge"
     Publisher="CN=Almanex"
-    Version="1.0.3.0" />
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="D9074F32-1B11-411B-B546-76335AD2E441" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -49,18 +49,18 @@
       </uap:VisualElements>
 
       <Extensions>
-        <desktop4:Extension Category="windows.fileExplorerContextMenu">
-          <desktop4:FileExplorerContextMenu>
-            <desktop5:ItemType Target=".png">
-              <desktop5:Verb Id="IconForgePng" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" AppliesTo=".png" />
+        <desktop4:Extension Category="windows.fileExplorerContextMenus">
+          <desktop4:FileExplorerContextMenus>
+            <desktop5:ItemType Type=".png">
+              <desktop5:Verb Id="IconForgePng" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" />
             </desktop5:ItemType>
-            <desktop5:ItemType Target=".svg">
-              <desktop5:Verb Id="IconForgeSvg" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" AppliesTo=".svg" />
+            <desktop5:ItemType Type=".svg">
+              <desktop5:Verb Id="IconForgeSvg" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" />
             </desktop5:ItemType>
-            <desktop5:ItemType Target=".ico">
-              <desktop5:Verb Id="IconForgeIco" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" AppliesTo=".ico" />
+            <desktop5:ItemType Type=".ico">
+              <desktop5:Verb Id="IconForgeIco" Clsid="A7C5F942-8D3E-4B0F-9C12-3D7E8F9A1B2C" />
             </desktop5:ItemType>
-          </desktop4:FileExplorerContextMenu>
+          </desktop4:FileExplorerContextMenus>
         </desktop4:Extension>
       </Extensions>
     </Application>
