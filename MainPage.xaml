@@ -453,8 +453,8 @@
 
                                         <!-- 16x16 preview -->
                                         <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="24" Height="24" CornerRadius="4">
-                                                <Image x:Name="Preview16" Stretch="Uniform" />
+                                            <Border Width="16" Height="16" CornerRadius="2">
+                                                <Image x:Name="Preview16" Stretch="Uniform" Width="16" Height="16" />
                                             </Border>
                                             <TextBlock Text="16x16" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
                                         </StackPanel>

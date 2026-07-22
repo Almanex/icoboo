@@ -320,37 +320,60 @@ namespace IconForge.Services
             }
         }
 
-        private static SKBitmap ResizeBitmap(SKBitmap source, int width, int height, bool applySharpening)
+        public static SKBitmap ResizeBitmap(SKBitmap source, int width, int height, bool applySharpening)
         {
-            var resized = new SKBitmap(width, height);
-            using (var canvas = new SKCanvas(resized))
+            SKBitmap current = source;
+            bool isTemporary = false;
+
+            using var highPaint = new SKPaint
+            {
+                FilterQuality = SKFilterQuality.High,
+                IsAntialias = true
+            };
+
+            // Progressive multi-octave downscaling (1024 -> 512 -> 256 -> 128 -> 64 -> 32 -> 16)
+            while (current.Width >= width * 2 && current.Height >= height * 2)
+            {
+                int nextW = current.Width / 2;
+                int nextH = current.Height / 2;
+                var stepBmp = new SKBitmap(nextW, nextH);
+                using (var canvas = new SKCanvas(stepBmp))
+                {
+                    canvas.Clear(SKColors.Transparent);
+                    var srcRect = new SKRect(0, 0, current.Width, current.Height);
+                    var dstRect = new SKRect(0, 0, nextW, nextH);
+                    canvas.DrawBitmap(current, srcRect, dstRect, highPaint);
+                }
+                if (isTemporary)
+                {
+                    current.Dispose();
+                }
+                current = stepBmp;
+                isTemporary = true;
+            }
+
+            var finalBmp = new SKBitmap(width, height);
+            using (var canvas = new SKCanvas(finalBmp))
             {
                 canvas.Clear(SKColors.Transparent);
-                var rect = new SKRect(0, 0, width, height);
-                
-                using var paint = new SKPaint
-                {
-                    FilterQuality = SKFilterQuality.High,
-                    IsAntialias = true
-                };
-                
-                canvas.DrawBitmap(source, rect, paint);
+                var srcRect = new SKRect(0, 0, current.Width, current.Height);
+                var dstRect = new SKRect(0, 0, width, height);
+                canvas.DrawBitmap(current, srcRect, dstRect, highPaint);
 
-                if (applySharpening)
+                if (applySharpening && width <= 48)
                 {
-                    using var temp = new SKBitmap(resized.Width, resized.Height);
+                    using var temp = new SKBitmap(finalBmp.Width, finalBmp.Height);
                     using (var tempCanvas = new SKCanvas(temp))
                     {
                         tempCanvas.Clear(SKColors.Transparent);
-                        tempCanvas.DrawBitmap(resized, 0, 0);
+                        tempCanvas.DrawBitmap(finalBmp, 0, 0);
                     }
                     canvas.Clear(SKColors.Transparent);
                     
-                    // Center sharpening kernel: positive center value, negative borders
                     float[] kernel = {
-                        0, -0.15f, 0,
-                        -0.15f, 1.6f, -0.15f,
-                        0, -0.15f, 0
+                        0, -0.08f, 0,
+                        -0.08f, 1.32f, -0.08f,
+                        0, -0.08f, 0
                     };
                     
                     var kernelSize = new SKSizeI(3, 3);
@@ -368,7 +391,13 @@ namespace IconForge.Services
                     canvas.DrawBitmap(temp, 0, 0, sharpenPaint);
                 }
             }
-            return resized;
+
+            if (isTemporary)
+            {
+                current.Dispose();
+            }
+
+            return finalBmp;
         }
 
         private static byte[] EncodeToPng(SKBitmap bitmap)

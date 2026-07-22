@@ -634,13 +634,7 @@ namespace IconForge
 
         private static byte[] EncodeSkiaToPngBytes(SKBitmap bmp, int size)
         {
-            using var resized = new SKBitmap(size, size);
-            using (var canvas = new SKCanvas(resized))
-            {
-                canvas.Clear(SKColors.Transparent);
-                using var paint = new SKPaint { FilterQuality = SKFilterQuality.High, IsAntialias = true };
-                canvas.DrawBitmap(bmp, new SKRect(0, 0, size, size), paint);
-            }
+            using var resized = IconProcessor.ResizeBitmap(bmp, size, size, applySharpening: size <= 48);
             using var image = SKImage.FromBitmap(resized);
             using var data = image.Encode(SKEncodedImageFormat.Png, 100);
             return data.ToArray();
