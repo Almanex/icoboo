@@ -683,6 +683,27 @@ namespace IconForge
             }
         }
 
+        private void PreviewZoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is string zoomMode && Preview16Container != null)
+            {
+                if (zoomMode == "1x")
+                {
+                    Preview256Container.Width = 64; Preview256Container.Height = 64;
+                    Preview48Container.Width = 48; Preview48Container.Height = 48;
+                    Preview32Container.Width = 32; Preview32Container.Height = 32;
+                    Preview16Container.Width = 16; Preview16Container.Height = 16;
+                }
+                else if (zoomMode == "2x")
+                {
+                    Preview256Container.Width = 80; Preview256Container.Height = 80;
+                    Preview48Container.Width = 64; Preview48Container.Height = 64;
+                    Preview32Container.Width = 48; Preview32Container.Height = 48;
+                    Preview16Container.Width = 32; Preview16Container.Height = 32;
+                }
+            }
+        }
+
         private void UpdateLivePreviews()
         {
             if (string.IsNullOrEmpty(_selectedInputPath) || !File.Exists(_selectedInputPath) || Preview256 == null) return;

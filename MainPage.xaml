@@ -415,7 +415,16 @@
                                 <Grid>
                                     <TextBlock x:Uid="PreviewGridHeader" Text="Предпросмотр по размерам" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="Medium" />
                                     
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
+                                        <!-- Zoom Toggle -->
+                                        <Button x:Name="PreviewZoom1xBtn" Height="28" Padding="6,0" Click="PreviewZoom_Click" Tag="1x" ToolTipService.ToolTip="Масштаб 1:1 (Реальный)">
+                                            <TextBlock Text="1x" FontSize="11" FontWeight="SemiBold" />
+                                        </Button>
+                                        <Button x:Name="PreviewZoom2xBtn" Height="28" Padding="6,0" Click="PreviewZoom_Click" Tag="2x" ToolTipService.ToolTip="Увеличенный просмотр (2x)">
+                                            <TextBlock Text="2x" FontSize="11" FontWeight="SemiBold" />
+                                        </Button>
+
+                                        <!-- Background Color Buttons -->
                                         <Button x:Name="PreviewBgTransparentBtn" Width="28" Height="28" Padding="0" Click="PreviewBg_Click" Tag="Transparent" ToolTipService.ToolTip="Прозрачный">
                                             <FontIcon Glyph="&#xE790;" FontSize="12" />
                                         </Button>
@@ -442,7 +451,7 @@
 
                                         <!-- 256x256 preview -->
                                         <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="72" Height="72" CornerRadius="6">
+                                            <Border x:Name="Preview256Container" Width="64" Height="64" CornerRadius="4">
                                                 <Image x:Name="Preview256" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="256x256" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -450,7 +459,7 @@
 
                                         <!-- 48x48 preview -->
                                         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="56" Height="56" CornerRadius="4">
+                                            <Border x:Name="Preview48Container" Width="48" Height="48" CornerRadius="4">
                                                 <Image x:Name="Preview48" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="48x48" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -458,7 +467,7 @@
 
                                         <!-- 32x32 preview -->
                                         <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="44" Height="44" CornerRadius="4">
+                                            <Border x:Name="Preview32Container" Width="32" Height="32" CornerRadius="4">
                                                 <Image x:Name="Preview32" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="32x32" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
@@ -466,7 +475,7 @@
 
                                         <!-- 16x16 preview -->
                                         <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
-                                            <Border Width="32" Height="32" CornerRadius="4">
+                                            <Border x:Name="Preview16Container" Width="16" Height="16" CornerRadius="2">
                                                 <Image x:Name="Preview16" Stretch="Uniform" />
                                             </Border>
                                             <TextBlock Text="16x16" Style="{ThemeResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" />
